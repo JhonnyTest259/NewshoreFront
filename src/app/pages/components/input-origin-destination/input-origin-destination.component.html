@@ -1,0 +1,33 @@
+<div class="card">
+    <div class="card-body">
+        <form [formGroup]="jorneyForm">
+            <div class="row">
+                <div class="col-12 col-md-4">
+                    <mat-form-field class="me-1 w-100" appearance="outline">
+                        <mat-label>Origin:</mat-label>
+                        <input maxlength="3" minlength="3" formControlName="origin" matInput>
+                        <mat-error>Por favor ingresa al menos 3 caracteres</mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="col-12 col-md-4">
+                    <mat-form-field class="ms-1 w-100" appearance="outline">
+                        <mat-label>Destination:</mat-label>
+                        <input maxlength="3" minlength="3" formControlName="destination" matInput>
+                        <mat-error>Por favor ingresa al menos 3 caracteres</mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="col-12 col-md-4">
+                    <mat-form-field class="ms-1 w-100" appearance="fill">
+                        <mat-label>Number of flights:</mat-label>
+                        <input min="0" type="number" formControlName="numberFlights" matInput>
+                        <mat-hint>Este campo es opcional</mat-hint>
+                    </mat-form-field>
+                </div>
+            </div>
+        </form>
+        <div class="row m-0 p-0 justify-content-center">
+            <button [disabled]="jorneyForm.status=='INVALID'" class="btn btn-primary btn-block mt-2 w-30"
+                (click)="sendSearch()">Search</button>
+        </div>
+    </div>
+</div>

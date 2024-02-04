@@ -1,0 +1,62 @@
+<div class="card">
+    <div class="card-body">
+        <div class="row">
+            <div class="col-12 col-md-8">
+                <strong>
+                    <span class="title_result">Origin</span>
+                </strong>
+                <p class="origin_destination">{{journey.origin}}</p>
+                <strong>
+                    <span class="title_result">Destination</span>
+                </strong>
+                <p class="origin_destination">{{journey.destination}}</p>
+                <strong>
+                    <span class="title_result">Total price</span>
+                </strong>
+                <p class="origin_destination">{{journey.price | currency}} {{journey.currency }}</p>
+            </div>
+            <div class="col-12 col-md-4">
+                <strong>
+                    <span class="title_result">Options</span>
+                </strong><br><br>
+                <mat-form-field appearance="outline">
+                    <mat-label>Currency</mat-label>
+                    <mat-select [(ngModel)]="monedaSelected" (ngModelChange)="convertCoin()">
+                        <mat-option *ngFor="let coin of monedas" [value]="coin">
+                            {{coin}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+            </div>
+
+        </div>
+
+        <div class="row">
+            <div class="col-12">
+                <div class="d-flex justify-content-between">
+
+                    <strong><span>Origin</span></strong>
+                    <strong><span>Destination</span></strong>
+                    <strong><span>Price</span></strong>
+                    <strong><span>Flight carrier</span></strong>
+                    <strong><span>Fligth number</span></strong>
+                </div>
+                <hr>
+                <div *ngFor="let data of journey.flights" class="d-flex justify-content-between">
+                    <span>{{data.origin}}</span>
+                    <span>{{data.destination}}</span>
+                    <span>{{data.price | currency:'USD'}}</span>
+                    <span>{{data.transport.flightCarrier}}</span>
+                    <span>{{data.transport.flightNumber}}</span>
+                </div>
+            </div>
+            <div class="col-12 mt-2  p-0 d-flex justify-content-end">
+                <strong>Total flights:</strong> {{journey.flights.length}}
+            </div>
+        </div>
+        <div class="row justify-content-start">
+            <button class="btn btn-primary w-30" (click)="back()">Back</button>
+        </div>
+    </div>
+</div>

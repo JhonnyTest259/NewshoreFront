@@ -1,0 +1,35 @@
+@use '@angular/material' as mat;
+@import 'ngx-toastr/toastr';
+
+$my-primary: mat.define-palette(mat.$indigo-palette, 500);
+$my-accent: mat.define-palette(mat.$pink-palette, A200, A100, A400);
+
+// The "warn" palette is optional and defaults to red if not specified.
+$my-warn: mat.define-palette(mat.$red-palette);
+
+html,
+body {
+    height: 100%;
+}
+
+body {
+    background: #0f0c29;
+    background: linear-gradient(to right, #24243e, #302b63, #0f0c29);
+    margin: 0;
+}
+
+.title {
+    font-size: 30px !important;
+    font-family: 'Raleway', sans-serif !important;
+    color: #fff;
+    text-align: center;
+    margin-top: 25px;
+}
+
+.row {
+    margin-top: 20px;
+}
+
+.w-30 {
+    width: 30%;
+}
