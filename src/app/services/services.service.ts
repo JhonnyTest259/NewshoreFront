@@ -1,13 +1,13 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, catchError, map, of } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { Flights } from '../interfaces/Flights';
+import { Jorneys } from '../interfaces/Jorneys';
 
 @Injectable({
   providedIn: 'root',
 })
-export class ServicesService {
+export class HttpService {
   routes: any = {
     uniqueRoutes: 0,
     multipleRoutes: 1,
@@ -15,10 +15,19 @@ export class ServicesService {
   };
   constructor(private http: HttpClient) {}
 
-  getFlights(level: string): Observable<Flights | null> {
-    let url = `${environment.BASE_URL}${this.routes[level]}`;
-    return this.http.get<Flights>(url).pipe(
-      map((data: Flights) => {
+  getJourney(params: any): Observable<Jorneys | null> {
+    let searchParams: string = `origin=${params.origin}&destination=${
+      params.destination
+    }${params.numberFlights ? '&flyLimit=' + params.numberFlights : ''}`;
+
+    let url = `${environment.BASE_URL}?${searchParams}`;
+
+    const headers = new HttpHeaders({
+      Authorization: 'Basic ' + btoa(environment.BASICAUTH),
+      'Content-Type': 'application/json',
+    });
+    return this.http.get<Jorneys>(url, { headers }).pipe(
+      map((data: Jorneys) => {
         return data;
       }),
       catchError((error: any) => {
