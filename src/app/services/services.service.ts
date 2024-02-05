@@ -23,7 +23,6 @@ export class HttpService {
     let url = `${environment.BASE_URL}?${searchParams}`;
 
     const headers = new HttpHeaders({
-      Authorization: 'Basic ' + btoa(environment.BASICAUTH),
       'Content-Type': 'application/json',
     });
     return this.http.get<Jorneys>(url, { headers }).pipe(
