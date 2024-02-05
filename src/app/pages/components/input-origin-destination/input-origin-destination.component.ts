@@ -70,9 +70,6 @@ export class InputOriginDestinationComponent implements OnInit {
           .subscribe((response: Jorneys | null) => {
             if (response != null) {
               resolve(response);
-            } else {
-              this.cleanAll();
-              this.toast.error('El servicio no se encuentra disponible');
             }
           });
       } catch (error) {

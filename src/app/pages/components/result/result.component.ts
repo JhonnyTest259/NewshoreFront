@@ -24,34 +24,27 @@ export class ResultComponent implements OnInit {
   }
 
   convertCoin() {
-    // console.log(this.monedaSelected);
+    const conversionFactors: any = {
+      USD: 1,
+      EUR: 0.91,
+      COP: 4526.14,
+    };
+
     this.journey.price = this.totalPrice;
     this.journey.flights = cloneDeep(this.flightsTmp);
-    // console.log(this.journey.flights);
-    // console.log(this.flightsTmp);
 
-    switch (this.monedaSelected) {
-      case 'USD':
-        this.journey.currency = 'USD';
-        this.journey.price = this.journey.price;
-        break;
-      case 'EUR':
-        this.journey.currency = 'EUR';
-        this.journey.price = this.journey.price * 0.91;
-        this.journey.flights.forEach((data) => {
-          data.price = data.price * 0.91;
-        });
-        break;
-      case 'COP':
-        this.journey.currency = 'COP';
-        this.journey.price = this.journey.price * 4526.14;
-        this.journey.flights.forEach((data) => {
-          data.price = data.price * 4526.14;
-        });
-        break;
+    const conversionFactor = conversionFactors[this.monedaSelected];
 
-      default:
-        break;
+    if (conversionFactor !== undefined) {
+      this.journey.currency = this.monedaSelected;
+      this.journey.price *= conversionFactor;
+
+      this.journey.flights.forEach((data) => {
+        data.price *= conversionFactor;
+      });
+    } else {
+      // Manejar caso inesperado
+      console.error('Moneda no reconocida:', this.monedaSelected);
     }
   }
 

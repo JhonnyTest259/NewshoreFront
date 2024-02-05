@@ -7,11 +7,15 @@ import {
 } from '@angular/common/http';
 import { Observable, catchError, finalize, throwError } from 'rxjs';
 import { CommonService } from '../services/common.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Injectable()
 export class HttpRequestInterceptor implements HttpInterceptor {
   private requestCount = 0;
-  constructor(private _commonSrv: CommonService) {}
+  constructor(
+    private _commonSrv: CommonService,
+    private toast: ToastrService
+  ) {}
 
   intercept(
     req: HttpRequest<unknown>,
@@ -28,7 +32,8 @@ export class HttpRequestInterceptor implements HttpInterceptor {
         }
       }),
       catchError((error) => {
-        return throwError('error interceptor');
+        this.toast.error(error.error[0]);
+        return throwError(error.error[0]);
       })
     );
   }
